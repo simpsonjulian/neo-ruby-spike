@@ -6,19 +6,9 @@ Bundler.require
 # require 'sinatra'
 
 
-Neo4j::Session.open(:server_db, 'http://localhost:7474', {basic_auth: {username: 'neo4j', password: 'secret'}})
 
-class Page
-  include Neo4j::ActiveNode
-  property :url, constraint: :unique
-  has_many :in, :visitors, unique: true, type: :VISITED
-end
 
-class Visitor
-  include Neo4j::ActiveNode
-  property :address, constraint: :unique
-  property :version, default: 4
-end
+
 
 def process_log(log_file_name)
   parser = HttpLogParser.new
